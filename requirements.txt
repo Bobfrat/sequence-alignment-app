@@ -1,0 +1,10 @@
+Flask
+Flask-WTF
+Flask-Bootstrap
+Flask-Session
+flask-socketio
+gunicorn
+celery
+redis
+gevent
+biopython
