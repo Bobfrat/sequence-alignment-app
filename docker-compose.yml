@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+  flask_app:  
+    restart: always  
+    build: .  
+    ports:    
+      - 3000:3000
+    volumes:     
+      - .:/app  
+    depends_on:    
+      - redis
+    entrypoint: ["python", "run.py"]
+
+  redis:    
+    restart: always    
+    image: redis
+    volumes:      
+      - ./redis_data:/data:cached
+
+  celery:
+    restart: always 
+    build: .
+    command: celery worker -A celery_worker.celery --loglevel=info
+
+volumes:
+  redis_data:
+    external:
+      name: redis_data
