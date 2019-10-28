@@ -1,6 +1,6 @@
-# ginkgo-backend-challenge
+# sequence-alignment-app
 
-Submission of the Ginkgo backend coding challenge.
+Submission of the backend coding challenge.
 
 The objective of this exercise is to create a web application that can determine whether a particular DNA strand encodes a portion of a protein in a well-known set.
 
