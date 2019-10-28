@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 '''
 app/main/views.py
+
+View routes for the main application endpoints
 '''
 from flask import render_template, session
 from app.main import main
