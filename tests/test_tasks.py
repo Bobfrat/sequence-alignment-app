@@ -15,11 +15,16 @@ class TestTasks(TestCase):
 		'''
 		Test a successful search case returns expected results
 		'''
-		dna_sequence = 'NC_023719'
-		expected_result = 'NC_023719'
+		dna_sequence = 'ATGTTCGAAAACAGAGTCATATGTTGTATCG'
+		expected_protein = 'NC_009899'
+		expected_start = 911
+		expected_start = 1117
+
 		result = search_protein(dna_sequence)
 
-		assert result == expected_result
+		assert result['protein'] == expected_protein
+		assert result['start_postion'] == expected_start
+		assert result['end_position'] == expected_end
 
 	def test_search_protein_fail(self):
 		'''
@@ -29,4 +34,4 @@ class TestTasks(TestCase):
 		expected_result = None
 		result = search_protein(dna_sequence)
 
-		assert result == expected_result
+		assert result['protein'] == expected_result
