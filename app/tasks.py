@@ -2,23 +2,13 @@
 '''
 app/tasks.py
 '''
+import glob
+import os
+import re
 from app import celery
-from random import random
-import time
+from Bio import SeqIO
+from Bio.Seq import Seq
 
-# List will be much larger, proably need to hit a database for full list later
-PROTEIN_LIST = [
-    'NC_000852',
-    'NC_007346',
-    'NC_008724',
-    'NC_009899',
-    'NC_014637',
-    'NC_020104',
-    'NC_023423',
-    'NC_023640',
-    'NC_023719',
-    'NC_027867'
-]
 
 def search_protein(dna_sequence):
     '''
@@ -26,13 +16,33 @@ def search_protein(dna_sequence):
     Randomly searches the list of Proteins (PROTEIN_LIST) until one is found
 
     :param str dna_sequence: The input dna_sequence to search
-    '''
-    for protein in PROTEIN_LIST:
-        if dna_sequence in protein:
-            break
-    else:
-        protein = None
-    return protein
+    '''    
+    dna_seq = Seq(dna_sequence)
+    results = {
+        'protein': None,
+        'start_position': None,
+        'end_position': None,
+    }
+    for filepath in glob.glob('app/sequence_data/*.fasta'):
+        for rec in SeqIO.parse(filepath, "fasta"):
+            # Look for a match
+            ind = rec.seq.find(dna_seq)
+            if ind > -1:
+                results['protein'] = rec.id
+                results['start_position'] = ind
+                results['end_position'] = ind + len(dna_seq)
+                return results
+
+            # No match, let's try the reverse complement
+            ind = rec.seq.find(dna_seq.reverse_complement())
+            if ind > -1:
+                results['protein'] = rec.id
+                results['start_position'] = ind
+                results['end_position'] = ind + len(dna_seq)
+                return results
+
+    return results
+
 
 @celery.task(name='search_protein')
 def search_protein_task(dna_sequence):
@@ -44,3 +54,8 @@ def search_protein_task(dna_sequence):
     '''    
 
     return search_protein(dna_sequence)
+
+
+if __name__ == "__main__":
+    dna_sequence = 'ATGTTCGAAAACAGAGTCATATGTTGTATCG'
+    print(search_protein(dna_sequence))
