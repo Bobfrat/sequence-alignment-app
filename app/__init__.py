@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_session import Session
 from flask_bootstrap import Bootstrap
 from celery import Celery
@@ -11,6 +12,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
+    CORS(app)
     Bootstrap(app)
     # Session(app)
     celery.conf.update(app.config)
