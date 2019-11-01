@@ -8,12 +8,8 @@ flake8-comprehensions
 flake8-mutable
 flake8-print
 isort
-nbsphinx
 pylint
 pytest
 pytest-cov
 pytest-flake8
 pytest-xdist
-sphinx
-twine
-wheel

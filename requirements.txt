@@ -3,6 +3,7 @@ Flask-WTF
 Flask-Bootstrap
 Flask-Session
 flask-socketio
+flask-cors
 gunicorn
 celery
 redis

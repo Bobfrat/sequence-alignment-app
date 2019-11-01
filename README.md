@@ -30,3 +30,9 @@ Press CTRL+C in your docker-compose terminal. Then:
 ```
 docker-compose stop
 ```
+
+
+## TODO
+- Add tests to react app
+- Documentation
+- Cache results (no need to search for duplicate sequence)
