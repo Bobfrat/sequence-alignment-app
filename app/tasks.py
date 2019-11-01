@@ -19,6 +19,7 @@ def search_protein(dna_sequence):
     '''    
     dna_seq = Seq(dna_sequence)
     results = {
+        'dna': dna_sequence,
         'protein': None,
         'start_position': None,
         'end_position': None,
@@ -52,7 +53,6 @@ def search_protein_task(dna_sequence):
 
     :param str dna_sequence: The input dna_sequence to search
     '''    
-
     return search_protein(dna_sequence)
 
 

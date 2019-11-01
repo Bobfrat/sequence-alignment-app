@@ -6,7 +6,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or '_5#y2L"F4Q8znxec]/'
     SESSION_TYPE = 'redis'
     HOST = '0.0.0.0'
-    PORT = '3000'
+    PORT = '4000'
     # Logging
     LOGGING = True
     LOG_LEVEL = 'INFO'
